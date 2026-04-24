@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 struct student {
     int id;
     char name[50];
     float marks;
 };
-
 void addStudent() {
     FILE *fp = fopen("students.txt", "a");
     struct student s;
@@ -24,7 +22,6 @@ void addStudent() {
 
     printf("Student added successfully!\n");
 }
-
 void viewStudents() {
     FILE *fp = fopen("students.txt", "r");
     struct student s;
@@ -37,7 +34,6 @@ void viewStudents() {
 
     fclose(fp);
 }
-
 void searchStudent() {
     FILE *fp = fopen("students.txt", "r");
     struct student s;
@@ -59,7 +55,6 @@ void searchStudent() {
 
     fclose(fp);
 }
-
 void deleteStudent() {
     FILE *fp = fopen("students.txt", "r");
     FILE *temp = fopen("temp.txt", "w");
@@ -76,7 +71,6 @@ void deleteStudent() {
             found = 1;
         }
     }
-
     fclose(fp);
     fclose(temp);
 
@@ -88,7 +82,6 @@ void deleteStudent() {
     else
         printf("Student not found!\n");
 }
-
 int main() {
     int choice;
 
@@ -106,6 +99,5 @@ int main() {
             default: printf("Invalid choice!\n");
         }
     }
-
     return 0;
 }
