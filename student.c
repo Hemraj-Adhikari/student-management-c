@@ -1,19 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 struct student {
     int id;
     char name[50];
     float marks;
 };
+
 void addStudent() {
-    FILE *fp = fopen("students.txt", "a");
+    FILE *fp = fopen("students.txt", "ab");
     struct student s;
+
+    if (fp == NULL) {
+        printf("File error!\n");
+        return;
+    }
 
     printf("Enter ID: ");
     scanf("%d", &s.id);
+
     printf("Enter Name: ");
-    scanf("%s", s.name);
+    scanf(" %[^\n]", s.name);
+
     printf("Enter Marks: ");
     scanf("%f", &s.marks);
 
@@ -22,9 +31,15 @@ void addStudent() {
 
     printf("Student added successfully!\n");
 }
+
 void viewStudents() {
-    FILE *fp = fopen("students.txt", "r");
+    FILE *fp = fopen("students.txt", "rb");
     struct student s;
+
+    if (fp == NULL) {
+        printf("File not found!\n");
+        return;
+    }
 
     printf("\n--- Student List ---\n");
 
@@ -34,10 +49,16 @@ void viewStudents() {
 
     fclose(fp);
 }
+
 void searchStudent() {
-    FILE *fp = fopen("students.txt", "r");
+    FILE *fp = fopen("students.txt", "rb");
     struct student s;
     int id, found = 0;
+
+    if (fp == NULL) {
+        printf("File not found!\n");
+        return;
+    }
 
     printf("Enter ID to search: ");
     scanf("%d", &id);
@@ -55,11 +76,17 @@ void searchStudent() {
 
     fclose(fp);
 }
+
 void deleteStudent() {
-    FILE *fp = fopen("students.txt", "r");
-    FILE *temp = fopen("temp.txt", "w");
+    FILE *fp = fopen("students.txt", "rb");
+    FILE *temp = fopen("temp.txt", "wb");
     struct student s;
     int id, found = 0;
+
+    if (fp == NULL || temp == NULL) {
+        printf("File error!\n");
+        return;
+    }
 
     printf("Enter ID to delete: ");
     scanf("%d", &id);
@@ -71,6 +98,7 @@ void deleteStudent() {
             found = 1;
         }
     }
+
     fclose(fp);
     fclose(temp);
 
@@ -82,6 +110,7 @@ void deleteStudent() {
     else
         printf("Student not found!\n");
 }
+
 int main() {
     int choice;
 
@@ -99,5 +128,4 @@ int main() {
             default: printf("Invalid choice!\n");
         }
     }
-    return 0;
 }
